@@ -1,8 +1,9 @@
 package com.example.medicare.Models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class UserModel {
+public class UserModel implements Serializable {
 
     public enum Roles {
         PATIENT,
@@ -11,10 +12,11 @@ public class UserModel {
     }
 
     public enum Genders {
-        MASCULINE,
-        FEMININE,
+        MALE,
+        FEMALE,
     }
 
+    public long id;
     public String email;
     public String password;
     public String name;
@@ -24,7 +26,8 @@ public class UserModel {
     public String birthDate;
     public String role;
 
-    public UserModel(String email, String password, String name, String lastName, String address, String gender, String birthDate, String role) {
+    public UserModel(int id, String email, String password, String name, String lastName, String address, String gender, String birthDate, String role) {
+        this.id = id;
         this.email = email;
         this.password = password;
         this.name = name;

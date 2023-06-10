@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.medicare.Controllers.UserController;
+import com.example.medicare.Data.Global;
 import com.example.medicare.Helpers.PasswordHelper;
 import com.example.medicare.Models.UserModel;
 
@@ -31,6 +32,8 @@ public class SignIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        // Global app = (Global) getApplication();
 
         // Inputs
         inputEmail = findViewById(R.id.editText_email_signIn);
@@ -106,13 +109,15 @@ public class SignIn extends AppCompatActivity {
 
                 String encryptedPass = PasswordHelper.encrypt(valPassword, valEmail);
 
-                UserModel userMdl = new UserModel(valEmail, encryptedPass);
-                long id = userCtrl.addUser(userMdl);
+                UserModel user = new UserModel(valEmail, encryptedPass);
+                long id = userCtrl.addUser(user);
 
                 // Go to Home
                 if (id > 0) {
+                    // app.setUser(user);
                     cleanInputs();
                     Intent intent = new Intent(SignIn.this, Home.class);
+                    intent.putExtra("user", user);
                     startActivity(intent);
                 } else {
                     Toast.makeText(SignIn.this, "Error in the new user creation.", Toast.LENGTH_LONG).show();

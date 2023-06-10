@@ -33,14 +33,15 @@ public class UserController extends DbHelper {
             values.put("last_name", user.lastName);
             values.put("address", user.address);
             values.put("gender", user.gender);
-            values.put("birth_date", (user.birthDate != null) ? user.birthDate.toString() : "");
+            values.put("birth_date", (user.birthDate != null) ? user.birthDate : "");
             values.put("role", user.role);
 
             id = db.insert(TABLE_NAME, null, values);
+            user.id = id;
 
             db.close();
         } catch (Exception ex) {
-            System.out.println("Error => " + ex.toString());
+            System.out.println("Error => " + ex);
         }
         return id;
     }
@@ -68,7 +69,7 @@ public class UserController extends DbHelper {
 
             Cursor cursor = db.query("user", projection, selection, selectionArgs, null, null, null);
             if (cursor.moveToFirst()) {
-                // int idIndex = cursor.getColumnIndex("id");
+                int idIndex = cursor.getColumnIndex("id");
                 int emailIndex = cursor.getColumnIndex("email");
                 int passwordIndex = cursor.getColumnIndex("password");
                 int nameIndex = cursor.getColumnIndex("name");
@@ -78,7 +79,7 @@ public class UserController extends DbHelper {
                 int birthDateIndex = cursor.getColumnIndex("birth_date");
                 int roleIndex = cursor.getColumnIndex("role");
 
-                // int id = cursor.getInt(idIndex);
+                int id = cursor.getInt(idIndex);
                 String userEmail = cursor.getString(emailIndex);
                 String userPassword = cursor.getString(passwordIndex);
                 String name = cursor.getString(nameIndex);
@@ -88,17 +89,46 @@ public class UserController extends DbHelper {
                 String birthDate = cursor.getString(birthDateIndex);
                 String role = cursor.getString(roleIndex);
 
-                user = new UserModel(userEmail, userPassword, name, lastName, address, gender, birthDate, role);
+                user = new UserModel(id, userEmail, userPassword, name, lastName, address, gender, birthDate, role);
             }
 
             cursor.close();
             db.close();
         } catch (Exception ex) {
-            System.out.println("Error => " + ex.toString());
+            System.out.println("Error => " + ex);
         }
 
         return user;
     }
 
+    public boolean updateUser(UserModel user) {
+        try {
+            DbHelper dbHelper = new DbHelper(context);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+
+            values.put("email", user.email);
+            values.put("password", user.password);
+            values.put("name", user.name);
+            values.put("last_name", user.lastName);
+            values.put("address", user.address);
+            values.put("gender", user.gender);
+            values.put("birth_date", (user.birthDate != null) ? user.birthDate : "");
+            values.put("role", user.role);
+
+            String selection = "id = ?";
+            String[] selectionArgs = {String.valueOf(user.id)};
+
+            int rowsAffected = db.update(TABLE_NAME, values, selection, selectionArgs);
+
+            db.close();
+
+            return rowsAffected > 0;
+        } catch (Exception ex) {
+            System.out.println("Error => " + ex);
+        }
+
+        return false;
+    }
 
 }

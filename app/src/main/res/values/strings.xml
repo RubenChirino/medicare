@@ -16,8 +16,16 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
+    <string name="text_profile">Profile</string>
+    <string name="text_name">Name</string>
+    <string name="text_lastName">Last Name</string>
+    <string name="text_address">Address</string>
+    <string name="text_gender">Gender</string>
+    <string name="text_birth_date">Birth Date</string>
+    <string name="text_save">Save</string>
+    <!-- USER SCREEN -->
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_new_turn">New Turn</string>
+    <string name="menu_turns">Turns</string>
+    <string name="menu_user">User</string>
 </resources>

@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "hospital_system.db";
 
     // === TABLES ===
@@ -26,8 +26,15 @@ public class DbHelper extends SQLiteOpenHelper {
             "role TEXT" + ")";
     private final String TABLE_USER_DELETION_QUERY = "DROP TABLE user";
 
-    // Shift
-    // ...
+    // Turn
+    private final String TABLE_TURN_CREATION_QUERY = "CREATE TABLE turn (" +
+            "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+            "id_user INTEGER REFERENCES user(id)," +
+            "speciality TEXT NOT NULL," +
+            "date DATE," +
+            "time TEXT" + ")";
+
+    private final String TABLE_TURN_DELETION_QUERY = "DROP TABLE turn";
 
     public DbHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -36,11 +43,14 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_USER_CREATION_QUERY);
+        db.execSQL("PRAGMA foreign_keys = ON;");
+        db.execSQL(TABLE_TURN_CREATION_QUERY);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(TABLE_USER_DELETION_QUERY);
+        db.execSQL(TABLE_TURN_DELETION_QUERY);
         onCreate(db);
     }
 }
