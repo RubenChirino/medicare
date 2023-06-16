@@ -30,7 +30,7 @@ public class TurnController extends DbHelper {
             SQLiteDatabase db = DbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
 
-            values.put("user_id", userId);
+            values.put("id_user", userId);
             values.put("speciality", turn.medicalSpeciality);
             values.put("date", turn.date);
             values.put("time", turn.time);
@@ -51,9 +51,7 @@ public class TurnController extends DbHelper {
         DbHelper DbHelper = new DbHelper(context);
         SQLiteDatabase db = DbHelper.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
-        if (cursor.getCount() == 0) {
-            // Toast.makeText(this, "No turns", Toast.LENGTH_SHORT).show();
-        } else {
+        if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
                 TurnModel turn = new TurnModel(cursor.getLong(0), cursor.getLong(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
                 turns.add(turn);
@@ -61,4 +59,20 @@ public class TurnController extends DbHelper {
         }
         return turns;
     }
+
+    public boolean deleteTurn(long turnId) {
+        try {
+            DbHelper dbHelper = new DbHelper(context);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+            int rowsAffected = db.delete(TABLE_NAME, "id = ?", new String[]{String.valueOf(turnId)});
+            db.close();
+
+            return rowsAffected > 0;
+        } catch (Exception ex) {
+            System.out.println("Error => " + ex);
+            return false;
+        }
+    }
+
 }

@@ -22,9 +22,6 @@ import java.util.ArrayList;
 
 public class User extends AppCompatActivity {
 
-    // == ELEMENTS ==
-    Button btnBack;
-
     // == VALUES ==
     String valName;
     String valLastName;
@@ -39,7 +36,7 @@ public class User extends AppCompatActivity {
         setContentView(R.layout.activity_user);
 
         // ==== FIND ELEMENTS ====
-        btnBack = findViewById(R.id.button_back);
+        Button btnBack = findViewById(R.id.button_back);
 
         EditText inputUserName = findViewById(R.id.editText_user_name);
         EditText inputUserLastName = findViewById(R.id.editText_user_last_name);
@@ -47,6 +44,7 @@ public class User extends AppCompatActivity {
         EditText inputUserBirthDate = findViewById(R.id.editTextDate_user_birth_date);
         Spinner spinnerUserGender = findViewById(R.id.spinner_user_gender);
         Button btnSave = findViewById(R.id.button_user_save);
+        Button btnDeleteUser = findViewById(R.id.button_deleteUser);
 
         // === DATA ===
         // Global app = (Global) getApplication();
@@ -182,6 +180,17 @@ public class User extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "The user cannot be updated", Toast.LENGTH_SHORT).show();
             }
             btnSave.setEnabled(false);
+        });
+
+        btnDeleteUser.setOnClickListener(view -> {
+            boolean deleted = userCtrl.deleteUserById(user.id);
+            if (deleted) {
+                Toast.makeText(getApplicationContext(), "The user has been deleted correctly", Toast.LENGTH_SHORT).show();
+                Intent intentGoToLogin = new Intent(User.this, Login.class);
+                startActivity(intentGoToLogin);
+            } else {
+                Toast.makeText(getApplicationContext(), "An error occurred trying to delete the user", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

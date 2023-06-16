@@ -22,6 +22,7 @@ public class SignIn extends AppCompatActivity {
     EditText inputPassword;
     EditText inputConfirmPassword;
     Button btnSignIn;
+    Button btnGoToLogIn;
 
     // Data
     String valEmail;
@@ -42,6 +43,7 @@ public class SignIn extends AppCompatActivity {
 
         // Buttons
         btnSignIn = findViewById(R.id.button_signIn);
+        btnGoToLogIn = findViewById(R.id.button_go_to_logIn);
 
         // === EVENTS ===
         inputEmail.addTextChangedListener(new TextWatcher() {
@@ -125,6 +127,11 @@ public class SignIn extends AppCompatActivity {
             } catch (Exception ex) {
                 ex.toString();
             }
+        });
+
+        btnGoToLogIn.setOnClickListener(view -> {
+            Intent intent = new Intent(SignIn.this, Login.class);
+            startActivity(intent);
         });
     }
 

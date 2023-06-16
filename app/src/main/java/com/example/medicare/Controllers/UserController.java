@@ -131,4 +131,23 @@ public class UserController extends DbHelper {
         return false;
     }
 
+    public boolean deleteUserById(long userId) {
+        try {
+            DbHelper dbHelper = new DbHelper(context);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+            String selection = "id = ?";
+            String[] selectionArgs = {String.valueOf(userId)};
+
+            int rowsAffected = db.delete(TABLE_NAME, selection, selectionArgs);
+
+            db.close();
+
+            return rowsAffected > 0;
+        } catch (Exception ex) {
+            System.out.println("Error => " + ex);
+        }
+
+        return false;
+    }
 }

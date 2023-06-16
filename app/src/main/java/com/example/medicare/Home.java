@@ -1,16 +1,14 @@
 package com.example.medicare;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.medicare.Controllers.TurnController;
-import com.example.medicare.Data.Global;
+import com.example.medicare.Helpers.TurnCustomAdapter;
+import com.example.medicare.Models.TurnModel;
 import com.example.medicare.Models.UserModel;
 import com.example.medicare.ui.user.UserFragment;
 import com.example.medicare.ui.user.UserViewModel;
@@ -26,9 +24,12 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medicare.databinding.ActivityHomeBinding;
+
+import java.util.ArrayList;
 
 public class Home extends AppCompatActivity {
 
@@ -40,6 +41,8 @@ public class Home extends AppCompatActivity {
 
     // Data
     UserModel user;
+    ArrayList<TurnModel> turns;
+    TurnCustomAdapter turnCustomAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +72,7 @@ public class Home extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         // === FIND ELEMENTS ===
-        TextView navbarEmailText = findViewById(R.id.textView_navbar_user_email);
+        // TextView navbarEmailText = findViewById(R.id.textView_navbar_user_email);
         FloatingActionButton newTurnBtn = findViewById(R.id.new_turn);
         recyclerViewElement = findViewById(R.id.recyclerView);
 
@@ -82,8 +85,19 @@ public class Home extends AppCompatActivity {
 
         // navbarEmailText.setText(user.email);
 
-        /* TurnController turnCtrl = new TurnController(Home.this);
-        turnCtrl.getAllTurnByUser(user.id); */
+        try {
+            TurnController turnCtrl = new TurnController(Home.this);
+            turns = turnCtrl.getAllTurnByUser(user.id);
+            if (turns.size() > 0) {
+                turnCustomAdapter = new TurnCustomAdapter(Home.this, turns);
+                recyclerViewElement.setAdapter(turnCustomAdapter);
+                recyclerViewElement.setLayoutManager(new LinearLayoutManager(Home.this));
+            } else {
+                // Notification
+            }
+        } catch (Exception e) {
+            Toast.makeText(Home.this, "An error occurred trying to get the turns", Toast.LENGTH_LONG).show();
+        }
 
         // ==== SET EVENTS ====
         newTurnBtn.setOnClickListener(v -> {

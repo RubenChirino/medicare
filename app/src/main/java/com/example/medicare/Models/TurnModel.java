@@ -13,7 +13,17 @@ public class TurnModel {
         PEDIATRICS,
         PSYCHIATRY,
         TRAUMATOLOGY,
-        UROLOGY
+        UROLOGY;
+
+        public static MedicalSpecialty fromString(String specialty) {
+            for (MedicalSpecialty medicalSpecialty : values()) {
+                if (medicalSpecialty.name().equalsIgnoreCase(specialty)) {
+                    return medicalSpecialty;
+                }
+            }
+            throw new IllegalArgumentException("No matching value found for: " + specialty);
+        }
+
     };
 
     public long id;

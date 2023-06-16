@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MediCare</string>
-    <string name="text_login">Login</string>
+    <string name="text_login">Log In</string>
     <string name="text_signIn">Sign In</string>
     <string name="label_email">Email</string>
     <string name="input_email">Enter your email</string>
@@ -9,6 +9,7 @@
     <string name="label_confirm_password">Confirm Password</string>
     <string name="input_confirm_password">Confirm password</string>
     <string name="button_send">Send</string>
+    <string name="button_back">Back</string>
     <string name="title_activity_home">Home</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -21,8 +22,19 @@
     <string name="text_lastName">Last Name</string>
     <string name="text_address">Address</string>
     <string name="text_gender">Gender</string>
+    <string name="text_date">Date</string>
     <string name="text_birth_date">Birth Date</string>
     <string name="text_save">Save</string>
+    <string name="text_delete">Delete</string>
+    <string name="text_cancel_turn">Cancel Turn</string>
+    <string name="text_cardiology">Cardiology</string>
+    <string name="text_date_example">18/07/2023</string>
+    <string name="text_time_example">10:30</string>
+    <string name="text_map">Map</string>
+    <string name="text_create">Create</string>
+    <string name="text_time">Time</string>
+    <string name="text_medical_speciality">Medical Speciality</string>
+    <string name="text_new_turn">New Turn</string>
     <!-- USER SCREEN -->
     <string name="menu_home">Home</string>
     <string name="menu_new_turn">New Turn</string>

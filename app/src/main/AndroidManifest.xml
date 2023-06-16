@@ -12,6 +12,9 @@
         android:theme="@style/Theme.MediCare"
         tools:targetApi="31">
         <activity
+            android:name=".TurnDetail"
+            android:exported="false" />
+        <activity
             android:name=".User"
             android:exported="false"
             android:label="@string/menu_user" />
@@ -26,12 +29,12 @@
             android:theme="@style/Theme.MediCare.NoActionBar" />
         <activity
             android:name=".SignIn"
-            android:label="@string/text_signIn"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/text_signIn" />
         <activity
             android:name=".Login"
-            android:label="@string/text_login"
-            android:exported="true">
+            android:exported="true"
+            android:label="@string/text_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

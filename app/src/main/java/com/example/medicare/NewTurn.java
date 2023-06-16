@@ -120,17 +120,24 @@ public class NewTurn extends AppCompatActivity {
                 return;
             }
 
-            TurnModel turn = new TurnModel(valSpeciality, valDate, valTime);
-            long id = turnCtrl.addTurn(turn, user.id);
+            try {
+                TurnModel turn = new TurnModel(valSpeciality, valDate, valTime);
+                long id = turnCtrl.addTurn(turn, user.id);
 
-            if (id > 0) {
-                Toast.makeText(getApplicationContext(), "The turn has been created correctly", Toast.LENGTH_SHORT).show();
+                if (id > 0) {
+                    Toast.makeText(getApplicationContext(), "The turn has been created correctly", Toast.LENGTH_SHORT).show();
+                    Intent intentGoToHome = new Intent(NewTurn.this, Home.class);
+                    intentGoToHome.putExtra("user", user);
+                    startActivity(intentGoToHome);
+                } else {
+                    Toast.makeText(getApplicationContext(), "No turns added yet", Toast.LENGTH_SHORT).show();
+                }
 
-                Intent intentGoToHome = new Intent(NewTurn.this, Home.class);
-                startActivity(intentGoToHome);
-            } else {
+            } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), "The turn cannot be created", Toast.LENGTH_SHORT).show();
             }
+
+
         });
 
         btnBack.setOnClickListener(view -> {
