@@ -43,3 +43,9 @@ Application to schedule medical shifts.
 <p align="center">
   <img width="312" src="https://github.com/RubenChirino/medicare/assets/52714843/ed2abe60-0dd1-479c-86e0-d6ff2a89cda1">
 </p>
+
+### Map
+
+<p align="center">
+  <img width="312" src="https://github.com/RubenChirino/medicare/assets/52714843/68ba4948-7762-4c49-b7a7-760b21416752">
+</p>
